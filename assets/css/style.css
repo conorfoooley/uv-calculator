@@ -369,7 +369,7 @@ div.btn {
 .half-circle {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -60px;
   width: 100%;
 }
 .point-content {
@@ -385,7 +385,7 @@ div.btn {
 .right-point {
   right: -2px;
 }
-.tem-control img {
+.tem-control canvas {
   margin-bottom: 5px;
 }
 .tem-control h3 {
@@ -408,7 +408,7 @@ div.btn {
   align-items: center;
   justify-content: center;
 }
-.tem-control p img {
+.tem-control p canvas {
   margin-bottom: 0;
   margin-right: 3px;
 }

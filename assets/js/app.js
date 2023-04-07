@@ -5,6 +5,7 @@ $(document).ready(function () {
    const minute = date.getMinutes();
    const hour_offset = Math.abs(3-offset);
    let current_hour = null;
+   let uv_value = null;
    if(offset<=3){
       
       if(hour - hour_offset < 0){
@@ -86,63 +87,7 @@ $(document).ready(function () {
           next.children(':first-child').clone().appendTo($(this));
         }
    });
-   var textbox = document.getElementById("search-input");
-   textbox.addEventListener("input", function(e){
-    
-   var isInputEvent = (Object.prototype.toString.call(e).indexOf("InputEvent") > -1);
-    
-   if(!isInputEvent){
-      let text = e.target.value;
-      let name = null;
-      $('.city-text').text(text);
-      $.each(cityObj, function(i,city){
-        if(city.city_text==text){
-          name = city.city_name;
-        }
-      });
-      
-      let uv_city_arr = null;
-      let uv_value = null;
-      $.each(uvDataObj.resultado, function(i,uvData){
-         if(uvData.nombre == name){
-            if(uvData.hora == current_hour){
-               uv_city_arr = uvData;
-               uv_value = uvData.uv;
-            }
-            else{
-               uv_city_arr = null;
-            }
-         }
-         if(uv_city_arr!=null){
-            $('.uv-value').text(uv_value);
-         }
-      });
-      getDataWithUV(uv_value);
-   }
-   }, false);   
-   $('.btn').click(function() {
-      let index = $(this).data('index');
-      let name = $(this).data('name');
-      let text = $(this).data('text');
-      $('.city-text').text(text);
-      let uv_city_arr = null;
-      let uv_value = null;
-      $.each(uvDataObj.resultado, function(i,uvData){
-         if(uvData.nombre == name){
-            if(uvData.hora == current_hour){
-               uv_city_arr = uvData;
-               uv_value = uvData.uv;
-            }
-            else{
-               uv_city_arr = null;
-            }
-         }
-         if(uv_city_arr!=null){
-            $('.uv-value').text(uv_value);
-         }
-      });
-      getDataWithUV(uv_value);
-   });
+
    function getDataWithUV(uv_value) {
       if(parseFloat(uv_value) < 3) {
          $('.uv-level').text("Bajo");
@@ -175,5 +120,96 @@ $(document).ready(function () {
          $('.uv-image').attr('src','assets/img/extreme.png');
       }
    }
- 
+
+   var textbox = document.getElementById("search-input");
+   textbox.addEventListener("input", function(e){
+    
+   var isInputEvent = (Object.prototype.toString.call(e).indexOf("InputEvent") > -1);
+    
+   if(!isInputEvent){
+      let text = e.target.value;
+      let name = null;
+      $('.city-text').text(text);
+      $.each(cityObj, function(i,city){
+        if(city.city_text==text){
+          name = city.city_name;
+        }
+      });
+      
+      let uv_city_arr = null;
+      
+      $.each(uvDataObj.resultado, function(i,uvData){
+         if(uvData.nombre == name){
+            if(uvData.hora == current_hour){
+               uv_city_arr = uvData;
+               uv_value = uvData.uv;
+            }
+            else{
+               uv_city_arr = null;
+            }
+         }
+         if(uv_city_arr!=null){
+            $('.uv-value').text(uv_value);
+         }
+      });
+      getDataWithUV(uv_value);
+      showChart();
+   }
+   }, false);   
+   $('.btn').click(function() {
+      let index = $(this).data('index');
+      let name = $(this).data('name');
+      let text = $(this).data('text');
+      $('.city-text').text(text);
+      let uv_city_arr = null;
+      $.each(uvDataObj.resultado, function(i,uvData){
+         if(uvData.nombre == name){
+            if(uvData.hora == current_hour){
+               uv_city_arr = uvData;
+               uv_value = uvData.uv;
+            }
+            else{
+               uv_city_arr = null;
+            }
+         }
+         if(uv_city_arr!=null){
+            $('.uv-value').text(uv_value);
+         }
+      });
+      getDataWithUV(uv_value);
+      showChart();
+   });
+   var ctx = document.getElementById("myChart");
+   showChart();
+   function showChart() {
+      var myChart = new Chart(ctx, {
+         type: 'doughnut',
+         data: {
+            labels: ["uv","rest"],
+            datasets: [{
+                  label: '# of Votes',
+                  data: [uv_value,11-uv_value],
+                  text: "ff",
+                  backgroundColor: [
+                     '#007bff'
+                  ],
+                  borderColor: [
+                     '#007bff'
+                  ],
+                  borderWidth: 1
+            }]
+         },
+         options: {
+            legend: {
+               display: false
+            },
+            rotation: 1 * Math.PI,
+            circumference: 1 * Math.PI,
+            cutoutPercentage: 98,
+            tooltip: {
+               enabled: false // <-- this option disables tooltips
+            }
+         }
+      });
+   }
 });
