@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Title</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/nice-select.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  </head>
+  <body>
+    <!-- UV Section -->
+    <section>
+      <!-- Container -->
+      <div class="container">
+        <div class="type-heading">
+          <img src="assets/img/sun-blue.png" alt="" />
+          <h3>Revisá el índice UV en tu zona</h3>
+        </div>
+        <!-- Type Box -->
+        <div class="type-box type-box-content">
+          <div class="uv-index-search">
+            <input list="search-inputs" id="search-input" name="search-input" placeholder="Ingresar ciudad" />
+            <datalist id="search-inputs" class="search-input-option">
+            </datalist>
+            <div class="search-btn">
+              <img src="assets/img/search.png" alt="" />
+            </div>
+          </div>
+          <!-- carousel -->
+          <div class="row mx-auto my-auto">
+              <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel" data-interval="false">
+                  <div class="carousel-inner w-100 uv-item-div" role="listbox">
+                  </div>
+                  <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                  </a>
+              </div>
+          </div>
+          <!-- Montevideo -->
+          <div class="montevideo">
+            <!-- Temp Control -->
+            <div class="tem-control">
+              <img
+                src="assets/img/half-cricle.png"
+                class="half-circle"
+                alt=""
+              />
+              <div class="point-content left-point">0</div>
+              <div class="point-content right-point">11</div>
+
+              <img class="uv-image" src="assets/img/sun-green.png" alt="" />
+              <h3 class="uv-level">Bajo</h3>
+              <span class="uv-value">0.00</span>
+              <p class="current-time"><img src="assets/img/second.png" alt="" /></p>
+            </div>
+            <!-- Montevide Content -->
+            <div class="montevideo-content">
+              <h2 class="city-text">Montevideo</h2>
+              <strong class="notice-title">Buenas noticias</strong>
+              <p class="notice-text">
+                Buenas noticiasLorem ipsum dolor sit amet, consectetuer
+                adipiscing Lorem ipsum dolor sit amet, consectetuer adipiscing
+                elit, sed diam
+              </p>
+            </div>
+          </div>
+          <!-- Hr -->
+          <hr />
+          <!-- Referencias -->
+          <div class="referencias">
+            <h3>Referencias</h3>
+            <ul class="referencias-list">
+              <li>
+                <div>
+                  <img src="assets/img/bajo.png" alt="bajo" />
+                </div>
+                <div>
+                  <p>1 - 2</p>
+                  <h4>Bajo</h4>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="assets/img/moderado.png" alt="bajo" />
+                </div>
+                <div>
+                  <p>3 - 5</p>
+                  <h4>Moderado</h4>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="assets/img/alto.png" alt="bajo" />
+                </div>
+                <div>
+                  <p>6 - 7</p>
+                  <h4>Alto</h4>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="assets/img/muy-alto.png" alt="bajo" />
+                </div>
+                <div>
+                  <p>8 - 10</p>
+                  <h4>Muy alto</h4>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <img src="assets/img/extreme.png" alt="bajo" />
+                </div>
+                <div>
+                  <p>11+</p>
+                  <h4>Extremo</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- End -->
+      </div>
+      <!-- End Container -->
+    </section>
+    <!-- End Uv Section -->
+
+
+    <!-- All Script -->
+    <script src="assets/js/jquery-3.6.1.min.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
+  </body>
+</html>
