@@ -50,12 +50,13 @@ $(document).ready(function () {
    $.ajax({
          'async': false,
          'global': false,
-         'url': "https://api.npoint.io/9b72f4e149600aee5746",
+         'url': "https://redirect.elpais.uy/data/data-uvs.json",
          'dataType': "json",
          'success': function (data) {
             uvDataObj = data;
          }
    });
+   
    let active_flag = '';
    $.each(cityObj, function(i,city){
       if(i==0){
@@ -63,13 +64,14 @@ $(document).ready(function () {
       }
       else
          active_flag = '';
+      $('#browsers').append(
+         '<option class="input-option" id="'+city.city_name+'" value="'+city.city_name+', '+city.city_text+'">'+city.city_name+', '+city.city_text+'</option>'
+      );
       $('.uv-item-div').append(
          '<div class="carousel-item '+ active_flag +'"><div class="col-md-3 uv-item-col"><div class="uv-item"><h3>'+city.city_name+'</h3><div class="btn" data-index="'+city.id+'" data-name="'+city.city_name+'" data-text="'+city.city_text+'">Ver índice UV</div></div></div></div>'
       );
-      $('.search-input-option').append(
-         '<option class="search-option" id="'+city.city_name+'" value="'+city.city_text+'">'
-      );
    });
+   
    $('.carousel .carousel-item').each(function(){
       let minPerSlide = 4;
       let next = $(this).next();
@@ -120,26 +122,75 @@ $(document).ready(function () {
          $('.uv-image').attr('src','assets/img/extreme.png');
       }
    }
-
-   var textbox = document.getElementById("search-input");
-   textbox.addEventListener("input", function(e){
+   var windowWidth = $(window).width();
+   console.log(windowWidth);
+   if(windowWidth<=768){
+      $('.uv-index-search').insertBefore('.type-box-content');
+      browsers.style.color = '#2b94c3';
+      $('.carousel-slider-div').insertBefore('.type-box-content');
+   }
+   input.onfocus = function () {
+      browsers.style.display = 'block';
+      input.style.borderRadius = "5px 5px 0 0";  
+    };
+    for (let option of browsers.options) {
+      option.onclick = function () {
+        searchCity(option.id);
+        input.value = option.value;
+        browsers.style.display = 'none';
+        input.style.borderRadius = "50px";
+      }
+    };
     
-   var isInputEvent = (Object.prototype.toString.call(e).indexOf("InputEvent") > -1);
-    
-   if(!isInputEvent){
-      let text = e.target.value;
-      let name = null;
-      $('.city-text').text(text);
-      $.each(cityObj, function(i,city){
-        if(city.city_text==text){
-          name = city.city_name;
+    input.oninput = function() {
+      currentFocus = -1;
+      var text = input.value.toUpperCase();
+      for (let option of browsers.options) {
+        if(option.value.toUpperCase().indexOf(text) > -1){
+          option.style.display = "block";
+      }else{
+        option.style.display = "none";
         }
-      });
-      
+      };
+    }
+    var currentFocus = -1;
+    input.onkeydown = function(e) {
+      if(e.keyCode == 40){
+        currentFocus++
+       addActive(browsers.options);
+      }
+      else if(e.keyCode == 38){
+        currentFocus--
+       addActive(browsers.options);
+      }
+      else if(e.keyCode == 13){
+        e.preventDefault();
+            if (currentFocus > -1) {
+              /*and simulate a click on the "active" item:*/
+              if (browsers.options) browsers.options[currentFocus].click();
+            }
+      }
+    }
+    
+    function addActive(x) {
+      if (!x) return false;
+      removeActive(x);
+      if (currentFocus >= x.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (x.length - 1);
+      x[currentFocus].classList.add("active");
+   }
+   function removeActive(x) {
+      for (var i = 0; i < x.length; i++) {
+         x[i].classList.remove("active");
+      }
+   }
+   
+   function searchCity(city_name){
+      $('.city-text').text(city_name);
       let uv_city_arr = null;
       
       $.each(uvDataObj.resultado, function(i,uvData){
-         if(uvData.nombre == name){
+         if(uvData.nombre == city_name){
             if(uvData.hora == current_hour){
                uv_city_arr = uvData;
                uv_value = uvData.uv;
@@ -155,7 +206,15 @@ $(document).ready(function () {
       getDataWithUV(uv_value);
       showChart();
    }
-   }, false);   
+   document.onclick = function(e) {
+      if(e.target == document.getElementById("input")) {
+         browsers.style.display = 'block';
+      } else {
+         browsers.style.display = 'none';
+         input.style.borderRadius = "50px";
+      }
+   }
+   
    $('.btn').click(function() {
       let index = $(this).data('index');
       let name = $(this).data('name');

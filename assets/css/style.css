@@ -65,9 +65,9 @@
 /* End Custom Fonts */
 
 :root {
-  --white: #ffffff;
-  --light-grey: #cacaca;
-  --blue: #0d85ba;
+  --white: #ffffff !important;
+  --light-grey: #cacaca !important;
+  --blue: #0d85ba !important;
 }
 
 /* Typograpy */
@@ -77,13 +77,13 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "KleinSlabserif";
-  font-weight: 300;
-  background: url(../img/body-bg.png) no-repeat center center;
-  background-size: cover;
-  color: var(--white);
-  font-size: 20px;
-  line-height: 24px;
+  font-family: "KleinSlabserif" !important;
+  font-weight: 300 !important;
+  background: url(../img/body-bg.png) no-repeat center center !important;
+  background-size: cover !important;
+  color: var(--white) !important;
+  font-size: 20px !important;
+  line-height: 24px !important;
 }
 ul,
 ol {
@@ -250,6 +250,7 @@ div.btn {
   font-size: 33px;
   line-height: 38px;
   font-weight: 400;
+  margin-bottom: 0px !important;
 }
 
 .type-box {
@@ -308,46 +309,26 @@ div.btn {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   padding-bottom: 50px;
 }
-.uv-item-col {
-  border-right: 1px solid var(--light-grey);
+.uv-item-col:not(:first-child) {
+  border-left: 1px solid var(--light-grey);
 }
 .uv-item {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 .uv-item h3 {
-  font-size: 20px;
+  font-size: 25px;
   line-height: 30px;
   padding-bottom: 10px;
   display: flex;
   justify-content: center;
+  margin-bottom: 0px;
 }
 .uv-item .btn {
   margin-left: auto;
   margin-right: auto;
 }
-.carousel-control-prev {
-  left: -80px !important;
-}
-.carousel-control-next {
-  right: -80px !important;
-}
-/* .uv-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  padding-bottom: 50px;
-}
 
-.uv-list li {
-  padding: 20px 10px;
-  border-bottom: 1px solid var(--light-grey);
-}
-
-.uv-list li h3 {
-  font-size: 25px;
-  line-height: 30px;
-  padding-bottom: 10px;
-} */
 .montevideo {
   display: flex;
   justify-content: space-between;
@@ -723,11 +704,41 @@ button.calc-btn {
 .carousel-inner {
 }
 @media (max-width: 768px) {
+  datalist{
+    font-size: 17px;
+  }
   .carousel-inner .carousel-item > div {
       display: none;
   }
   .carousel-inner .carousel-item > div:first-child {
       display: block;
+  }
+  .carousel-inner .carousel-item > div:first-child + div{
+    display: block;
+  }
+  .carousel-inner .carousel-item-right.active,
+  .carousel-inner .carousel-item-next {
+    transform: translateX(50%);
+  }
+  
+  .carousel-inner .carousel-item-left.active, 
+  .carousel-inner .carousel-item-prev {
+    transform: translateX(-50%);
+  }
+  .carousel-control-next, .carousel-control-prev{
+    color: #495057 !important;
+    font-size: 16px !important;
+    top: 30px !important;
+    width: 20px !important;
+    height: 50px !important;
+  }
+  .carousel-control-prev-icon{
+    left: -15px !important;
+    background-image: none !important;
+  }
+  .carousel-control-next-icon{
+    right: -15px !important;
+    background-image: none !important;
   }
 }
 
@@ -749,11 +760,60 @@ button.calc-btn {
   .carousel-inner .carousel-item-prev {
     transform: translateX(-25%);
   }
+  .carousel-control-next, .carousel-control-prev{
+    color: #495057 !important;
+    font-size: 33px !important;
+    top: 30px !important;
+    width: 20px !important;
+    height: 50px !important;
+  }
+  .carousel-control-prev-icon{
+    left: -10px;
+    background-image: none !important;
+  }
+  .carousel-control-next-icon{
+    right: -10px;
+    background-image: none !important;
+  }
 }
 
 .carousel-inner .carousel-item-right,
 .carousel-inner .carousel-item-left{ 
 transform: translateX(0);
+}
+
+
+input {
+  padding: 5px;
+  width: 650px;
+  outline: none;
+/*   border-bottom: none; */
+}
+datalist {
+  z-index: 1;
+  position: absolute;
+  font-family: sans-serif;
+  width: 100%;
+  max-height: 19.2rem;
+  overflow-y: auto;
+  border-left: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0;
+  /* margin-left:25px;
+  margin-right:25px; */
+}
+
+option {
+  font-family: "KleinSlabserif" !important;
+  background-color: white;
+  padding: 4px 4px 4px 20px;
+  cursor: pointer;
+  line-height: 2.25rem;
+  margin-top:-1px;
+}
+
+.input-option:hover{
+  background-color: lightblue;
 }
 
 
